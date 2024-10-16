@@ -15,20 +15,16 @@ const app = express();
 const PORT = 4000;
 
 // Connect to MongoDB
-mongoose.connect('mongodb://localhost:27017/your_database_name')
-    .then(() => {
-        console.log('Connected to MongoDB');
-    })
-    .catch(err => {
-        console.error('Could not connect to MongoDB', err);
-    });
+mongoose.connect(process.env.MONGODB_URI)
+    .then(() => console.log('Connected to MongoDB'))
+    .catch(err => console.error('Could not connect to MongoDB', err));
 
 // Middleware setup
 app.use(express.urlencoded({ extended: true }));
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
 app.use(session({
-    secret: 'your_secret_key', // Change to a secure random value in production
+    secret: process.env.SESSION_SECRET, // Change to a secure random value in production
     resave: false,
     saveUninitialized: true
 }));
