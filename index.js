@@ -8,6 +8,8 @@ const multer = require('multer'); // Import multer for file uploads
 const path = require('path');
 const User = require('./models/User'); // Import the User model
 const fs = require('fs');
+require('dotenv').config();
+
 
 const app = express();
 const PORT = 4000;
